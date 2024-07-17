@@ -77,11 +77,11 @@ const CustomAppBar = (props) => {
                 src={'/icon/logo-jesus-film-project.svg'}
                 alt=""
                 style={{height: 37}} /> */}
-              <IconButton
+              {/* <IconButton
                 sx={{color: 'white',backgroundColor: 'darkgrey'}}
                 onClick={(e) => onClickPlay(e)}>
                 <PlaylistPlay/>
-              </IconButton>
+              </IconButton> */}
             </Item>
           </Box>
         </div>
