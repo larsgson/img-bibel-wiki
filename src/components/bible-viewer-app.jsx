@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import PlanEpisode from './plan-episode'
 import CustomAppBar from './app-bar'
+import ClosePlayAppBar from './close-play-bar'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import useMediaPlayer from "../hooks/useMediaPlayer"
+import { isEmptyObj } from '../utils/obj-functions'
+import useBrowserData from '../hooks/useBrowserData'
 import { verseSec } from '../constants/TimeCodes'
 import { verseSumCh } from '../constants/naviChaptersJohn'
 import { gospelOfJohnObjBPlus } from '../constants/readingPlan'
 import { apiSetStorage, apiGetStorage } from '../utils/api'
 import { uniqueArray } from '../utils/obj-functions'
 import { differenceInCalendarDays, addDays, subDays } from 'date-fns'
+import { useTranslation } from 'react-i18next'
 
 const theme = createTheme({
   palette: {
@@ -25,7 +29,10 @@ const defaultBackgroundStyle = {
 }
 
 const BibleviewerApp = () => {
-  const { startPlay } = useMediaPlayer()
+  const { startPlay, curPlay } = useMediaPlayer()
+  const { size, width, height } = useBrowserData()
+  const { t } = useTranslation()
+  const isPlaying = !isEmptyObj(curPlay)
   const [showBiblePassage,setShowBiblePassage] = useState(false)
   const [completedList,setCompletedList] = useState([])
   const curSerie = gospelOfJohnObjBPlus
@@ -35,6 +42,9 @@ const BibleviewerApp = () => {
   const daysDiff = differenceInCalendarDays(dateNow,firstDateOfPlan)
   const daysSinceFirst = daysDiff <= nbrEpisodes ? daysDiff : nbrEpisodes
   const [navigationDate, setNavigationDate] = React.useState(dateNow);
+  const viewRatio = width / height
+  const missingHeight = viewRatio > (16 / 9)
+  const showCloseButton = isPlaying && missingHeight
 
   useEffect(() => {
     apiGetStorage(`${gospelOfJohnObjBPlus.uniqueID}.completed`).then((value) => {
@@ -93,7 +103,7 @@ const BibleviewerApp = () => {
   return (
     <div style={defaultBackgroundStyle}>
       <ThemeProvider theme={theme}>
-        <CustomAppBar/>
+        {showCloseButton ? <ClosePlayAppBar/> : <CustomAppBar/>}
         {/* <TileItem
           item={curObj}
           infoTile={true}
@@ -106,7 +116,7 @@ const BibleviewerApp = () => {
           }}
         >
           <img
-            src={'DasJohannesevangelium.jpg'}
+            src={t("John.ImgId")}
             style={{
               width: '100%',
               // float: props.float,
@@ -129,7 +139,6 @@ const BibleviewerApp = () => {
             onClickExpand={() => handleShowBiblePassage(!showBiblePassage)}
           />
         </div>
-
       </ThemeProvider>
     </div>
   )

@@ -1,14 +1,11 @@
 import React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
-import PlaylistPlay from '@mui/icons-material/PlaylistPlay'
+import NavClose from '@mui/icons-material/Close'
 import PropTypes from 'prop-types'
-import { isEmptyObj } from '../utils/obj-functions'
 import { useTranslation } from 'react-i18next'
-import useBrowserData from '../hooks/useBrowserData'
 import useMediaPlayer from "../hooks/useMediaPlayer"
 
 function Item(props) {
@@ -40,10 +37,9 @@ Item.propTypes = {
   ]),
 };
 
-const CustomAppBar = (props) => {
+const ClosePlayAppBar = (props) => {
   const { t } = useTranslation()
-  const { size } = useBrowserData()
-  // const onClickMenu = () => console.log("onClickMenu")
+  const { onStopPlaying } = useMediaPlayer()
   return (
     <AppBar
       sx={{ background: 'transparent', boxShadow: 'none'}}
@@ -57,31 +53,15 @@ const CustomAppBar = (props) => {
               m: 1,
             }}>
             <Item>
-              <img
-                src={'/icon/logo-bplus-mobile.svg'}
-                alt=""
-                style={{height: 52}} />
             </Item>
             <Item>
-              <Typography
-                sx={{
-                    fontFamily: "'Work Sans', sans-serif",
-                    fontSize: (size === "sm") ? 25 : (size === "xs") ? 14 : 35,
-                    textDecoration: 'none',
-                    width: '100%'
-                  }}
-                color="inherit"
-              >
-                {t("JohnLongTitle")}
-              </Typography>
             </Item>
             <Item>
-  {/* To Do!!! Bibelleseplan oder ganzes Video             */}
-              {/* <IconButton
+              <IconButton
                 sx={{color: 'white',backgroundColor: 'darkgrey'}}
-                onClick={(e) => onClickMenu(e)}>
-                <PlaylistPlay/>
-              </IconButton> */}
+                onClick={() => onStopPlaying()}>
+                <NavClose/>
+              </IconButton>
             </Item>
           </Box>
         </div>
@@ -90,4 +70,4 @@ const CustomAppBar = (props) => {
   )
 }
 
-export default CustomAppBar
+export default ClosePlayAppBar
