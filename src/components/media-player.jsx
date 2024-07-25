@@ -4,7 +4,6 @@ import NavClose from '@mui/icons-material/Close'
 import VideoPlayer from './video'
 import useMediaPlayer from "../hooks/useMediaPlayer"
 import useBrowserData from '../hooks/useBrowserData'
-import { useTranslation } from 'react-i18next'
 import {apiObjGetStorage,apiObjSetStorage} from '../utils/api'
 
 let styles = {
@@ -62,7 +61,6 @@ let styles = {
 const Footer = () => {
   const {width, height} = useBrowserData()
   const player = useMediaPlayer()
-  const { t } = useTranslation()
   const { curPlay,
           onStopPlaying, onPlaying, onFinishedPlaying,
           isPaused} = player
@@ -80,7 +78,9 @@ const Footer = () => {
   const [curPos, setCurPos] = useState()
   const [curDur, setCurDur] = useState()
   const storePos = (msPos) => apiObjSetStorage(curPlay,"mSec",msPos)
-  const ytbURL = t("videoURL.YT")
+  // const ytbURL = "https://www.youtube.com/watch?v=xEK-0n88zSI" // English
+  const ytbURL = "https://www.youtube.com/watch?v=MpGiPo8UuVk" // Deutsch / German
+
   useEffect(() => {
     let didCancel = false
     const restorePos = async (obj) => {
