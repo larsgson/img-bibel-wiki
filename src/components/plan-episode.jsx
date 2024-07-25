@@ -183,7 +183,7 @@ const PlanEpisode = (props) => {
         </div>
       </Grid>
       {curEp && <Typography sx={{pl: 0.5, pt: 1,fontWeight: 400,fontSize: '110%'}}>{t(curEp.title)}</Typography>}
-      {curEp && curEp.descr && <Typography sx={{pl: 0.5, pt: 0.5,fontWeight: 100,fontSize: '85%',width: '100%'}}><NewlineText text={curEp.descr}/></Typography>}
+      {curEp && curEp.descr && <Typography sx={{pl: 0.5, pt: 0.5,fontWeight: 100,fontSize: '85%',width: '100%'}}><NewlineText text={t(curEp.descr)}/></Typography>}
       <Grid container alignItems="center" spacing={2}>
         <Grid item>
           <Typography
