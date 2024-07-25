@@ -3,10 +3,9 @@ import DatePicker from "react-datepicker";
 import { rangeArray } from '../utils/obj-functions'
 import { subDays, addDays } from 'date-fns';
 import { registerLocale, setDefaultLocale } from  "react-datepicker";
-import enUsLocale from 'date-fns/locale/en-US';
-
-registerLocale('en', enUsLocale)
-setDefaultLocale('en')
+import { de } from 'date-fns/locale/de';
+registerLocale('de', de)
+setDefaultLocale('de')
 
 import "react-datepicker/dist/react-datepicker.css";
 

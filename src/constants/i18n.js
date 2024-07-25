@@ -9,8 +9,8 @@ i18n
   .use(initReactI18next) // if not using I18nextProvider
   .init({
     // lng: locale2.substr(0,2),
-    lng: "en",
-    fallbackLng: "en",
+    lng: "de",
+    fallbackLng: "de",
     debug: true,
 
     interpolation: {
@@ -35,9 +35,7 @@ i18n
           EndCh: "End Chapter",
           EndV: "End Verse",
           Verse: "Verse",
-          John: "John",
-          JohnLongTitle: "The Gospel of John",
-          "videoURL.YT": "https://www.youtube.com/watch?v=xEK-0n88zSI",
+          John: "Gospel of John",
           "John.ImgId": "img/john-pics/VB-John1v14.jpg",
           "John.Descr":
             "John’s Gospel begins with a poetic introduction that places the story of Jesus within the wider story of the Word of God. A word is a form of communication, and the story stresses ways in which God speaks to the world through Jesus. \nThis Gospel helps us into the relationship of trust in God, like we were created for and which is true life. \nJesus communicates the will of God by the words he speaks, by the miracles he performs, by the death he dies in love for others, and by rising to life. The miracles recorded in John’s gospel are written that the reader would believe in Jesus and find life in His name. \nJesus appears in the role of a human being, which means that he is an example for other people to follow. As a typical human being, he possessed no extraordinary power that is not available to anyone else who asks for it and who meets the conditions for receiving it.",
@@ -130,7 +128,6 @@ i18n
           "John.1.43": "Jesus calls Philip and Nathanael",
           "John.2.1": "Jesus changes water into wine",
           "John.2.13": "Jesus clears the temple courts",
-          "John.2.23": "Jesus understands the people",
           "John.3.1": "Jesus teaches Nicodemus",
           "John.3.22": "John testifies again about Jesus",
           "John.4.1": "Jesus talks with a Samaritan woman",
@@ -139,19 +136,12 @@ i18n
           "John.4.43": "Jesus heals an official’s son",
           "John.5.1": "The healing at the pool",
           "John.5.16": "The authority of the Son",
-          "John.5.19": "Jesus' authority: the authority of the Son",
           "John.5.31": "Testimonies about Jesus",
           "John.6.1": "Jesus feeds the five thousand",
           "John.6.16": "Jesus walks on the water",
-          "John.6.22": "The crowd seeks Jesus",
           "John.6.25": "Jesus the bread of life",
-          "John.6.26": "Jesus Christ - the bread of life",
-          "John.6.35": "Whoever believes has eternal life",
-          "John.6.48": "Whoever eats this bread will live forever",
           "John.6.60": "Many disciples desert Jesus",
-          "John.6.67": "Peter's confession",
           "John.7.1": "Jesus goes to the Festival of Tabernacles",
-          "John.7.10": "Jesus at the Feast of Tabernacles in Jerusalem",  
           "John.7.14": "Jesus teaches at the festival",
           "John.7.25": "Division over who Jesus is",
           "John.7.45": "Unbelief of the Jewish leaders",
@@ -215,7 +205,6 @@ i18n
           Verse: "Vers",
           John: "Johannes",
           JohnLongTitle: "Das Johannesevangelium",
-          "videoURL.YT": "https://www.youtube.com/watch?v=MpGiPo8UuVk",
           "John.ImgId": "DasJohannesevangelium.jpg",
           "John.Descr":
             "John’s Gospel begins with a poetic introduction that places the story of Jesus within the wider story of the Word of God. A word is a form of communication, and the story stresses ways in which God speaks to the world through Jesus. \nThis Gospel helps us into the relationship of trust in God, like we were created for and which is true life. \nJesus communicates the will of God by the words he speaks, by the miracles he performs, by the death he dies in love for others, and by rising to life. The miracles recorded in John’s gospel are written that the reader would believe in Jesus and find life in His name. \nJesus appears in the role of a human being, which means that he is an example for other people to follow. As a typical human being, he possessed no extraordinary power that is not available to anyone else who asks for it and who meets the conditions for receiving it.",
