@@ -3,13 +3,11 @@ import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import IconButton from '@mui/material/IconButton'
-import PlaylistPlay from '@mui/icons-material/PlaylistPlay'
+// import IconButton from '@mui/material/IconButton'
+// import PlaylistPlay from '@mui/icons-material/PlaylistPlay'
 import PropTypes from 'prop-types'
-import { isEmptyObj } from '../utils/obj-functions'
 import { useTranslation } from 'react-i18next'
 import useBrowserData from '../hooks/useBrowserData'
-import useMediaPlayer from "../hooks/useMediaPlayer"
 
 function Item(props) {
   const { sx, ...other } = props;
