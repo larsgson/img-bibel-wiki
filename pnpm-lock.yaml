@@ -29,6 +29,9 @@ importers:
       '@oce-editor-tools/base':
         specifier: 0.1.31-beta.15
         version: 0.1.31-beta.15(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@oce-editor-tools/verse-mapper':
+        specifier: ^0.0.6
+        version: 0.0.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
@@ -1133,6 +1136,12 @@ packages:
 
   '@oce-editor-tools/base@0.1.31-beta.15':
     resolution: {integrity: sha512-EADn1r87aF6lkCdNH7tr2TAznHxPVMS5W0cuxbMvF/2mqo38ZVW48B+2IcAF1ihd4RYmE9tOIWfbAv+CGMlVfg==}
+    peerDependencies:
+      react: ^18.2.0
+      react-dom: ^18.2.0
+
+  '@oce-editor-tools/verse-mapper@0.0.6':
+    resolution: {integrity: sha512-cwyH2Popy5/jiqj0zCFPG3fMPFodrK2ue9KIQcJd8VYkt00g8h4y4BlbisMWHlePieV/pNHcJTGDDw0t9icKqA==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -4131,6 +4140,11 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
     transitivePeerDependencies:
       - xregexp
+
+  '@oce-editor-tools/verse-mapper@0.0.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   '@popperjs/core@2.11.8': {}
 

@@ -224,7 +224,7 @@ console.log("handleFinishedPlaying")
   const isFB = curEp && curEp.fb
   const position = 'relative'
   const top = '0px'
-  if (locURL.length>0) {
+  if (locURL?.length>0) {
     return (
       <footer
         id={idStr}
