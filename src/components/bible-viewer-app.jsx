@@ -103,7 +103,7 @@ const BibleviewerApp = () => {
   return (
     <div style={defaultBackgroundStyle}>
       <ThemeProvider theme={theme}>
-        {showCloseButton ? <ClosePlayAppBar/> : <CustomAppBar/>}
+        {showCloseButton ? <ClosePlayAppBar/> : (!isPlaying) && <CustomAppBar/>}
         {/* <TileItem
           item={curObj}
           infoTile={true}
