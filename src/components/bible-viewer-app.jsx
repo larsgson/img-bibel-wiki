@@ -99,11 +99,12 @@ const BibleviewerApp = () => {
       }
     }
   }
- 
+  const onClickMenu = () => console.log("onClickMenu")
+
   return (
     <div style={defaultBackgroundStyle}>
       <ThemeProvider theme={theme}>
-        {showCloseButton ? <ClosePlayAppBar/> : (!isPlaying) && <CustomAppBar/>}
+        {showCloseButton ? <ClosePlayAppBar/> : (!isPlaying) && <CustomAppBar onClickMenu={onClickMenu}/>}
         {/* <TileItem
           item={curObj}
           infoTile={true}

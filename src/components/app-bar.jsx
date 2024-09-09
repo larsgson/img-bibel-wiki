@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
-import PlaylistPlay from '@mui/icons-material/PlaylistPlay'
+import Menu from '@mui/icons-material/Menu'
 import PropTypes from 'prop-types'
 import { isEmptyObj } from '../utils/obj-functions'
 import { useTranslation } from 'react-i18next'
@@ -43,7 +43,7 @@ Item.propTypes = {
 const CustomAppBar = (props) => {
   const { t } = useTranslation()
   const { size } = useBrowserData()
-  // const onClickMenu = () => console.log("onClickMenu")
+  const {onClickMenu} = props
   return (
     <AppBar
       sx={{ background: 'transparent', boxShadow: 'none'}}
@@ -76,11 +76,10 @@ const CustomAppBar = (props) => {
               </Typography>
             </Item>
             <Item>
-  {/* To Do!!! Bibelleseplan oder ganzes Video             */}
               {/* <IconButton
                 sx={{color: 'white',backgroundColor: 'darkgrey'}}
                 onClick={(e) => onClickMenu(e)}>
-                <PlaylistPlay/>
+                <Menu/>
               </IconButton> */}
             </Item>
           </Box>
