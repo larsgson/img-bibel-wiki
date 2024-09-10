@@ -6,10 +6,9 @@ import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import Menu from '@mui/icons-material/Menu'
 import PropTypes from 'prop-types'
-import { isEmptyObj } from '../utils/obj-functions'
+// import { isEmptyObj } from '../utils/obj-functions'
 import { useTranslation } from 'react-i18next'
 import useBrowserData from '../hooks/useBrowserData'
-import useMediaPlayer from "../hooks/useMediaPlayer"
 
 function Item(props) {
   const { sx, ...other } = props;
@@ -76,11 +75,11 @@ const CustomAppBar = (props) => {
               </Typography>
             </Item>
             <Item>
-              {/* <IconButton
+              <IconButton
                 sx={{color: 'white',backgroundColor: 'darkgrey'}}
                 onClick={(e) => onClickMenu(e)}>
                 <Menu/>
-              </IconButton> */}
+              </IconButton>
             </Item>
           </Box>
         </div>

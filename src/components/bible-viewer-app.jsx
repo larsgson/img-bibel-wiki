@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import PlanEpisode from './plan-episode'
 import CustomAppBar from './app-bar'
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Typography from '@mui/material/Typography'
 import ClosePlayAppBar from './close-play-bar'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import useMediaPlayer from "../hooks/useMediaPlayer"
@@ -45,6 +49,7 @@ const BibleviewerApp = () => {
   const viewRatio = width / height
   const missingHeight = viewRatio > (16 / 9)
   const showCloseButton = isPlaying && missingHeight
+  const [drawerOpen, setDrawerOpen] = React.useState(false)
 
   useEffect(() => {
     apiGetStorage(`${gospelOfJohnObjBPlus.uniqueID}.completed`).then((value) => {
@@ -58,6 +63,17 @@ const BibleviewerApp = () => {
       apiSetStorage(`${gospelOfJohnObjBPlus.uniqueID}.completed`,newList)
       return newList
     })
+  }
+
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return
+    }
+    setDrawerOpen(open)
   }
 
   const handleNext = () => {
@@ -99,12 +115,13 @@ const BibleviewerApp = () => {
       }
     }
   }
-  const onClickMenu = () => console.log("onClickMenu")
-
+  const openInNewTab = (url) => {
+    window.open(url, "_blank", "noreferrer");
+  }
   return (
     <div style={defaultBackgroundStyle}>
       <ThemeProvider theme={theme}>
-        {showCloseButton ? <ClosePlayAppBar/> : (!isPlaying) && <CustomAppBar onClickMenu={onClickMenu}/>}
+        {showCloseButton ? <ClosePlayAppBar/> : (!isPlaying) && <CustomAppBar onClickMenu={toggleDrawer(true)}/>}
         {/* <TileItem
           item={curObj}
           infoTile={true}
@@ -140,6 +157,105 @@ const BibleviewerApp = () => {
             onClickExpand={() => handleShowBiblePassage(!showBiblePassage)}
           />
         </div>
+        <SwipeableDrawer
+          anchor='right'
+          open={drawerOpen}
+          onClose={toggleDrawer(false)}
+          onOpen={toggleDrawer(true)}
+        >
+          <Box
+            sx={{ width: 250 }}
+            role="presentation"
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
+          >
+            <Typography
+              sx={{
+                  fontFamily: "'Work Sans', sans-serif",
+                  fontSize: 35,
+                  textDecoration: 'none',
+                  marginTop: 3,
+                  marginLeft: 1
+                }}
+              color="inherit"
+            >
+              Weitere Inhalte
+            </Typography>
+            <Typography
+              sx={{
+                  fontFamily: "'Work Sans', sans-serif",
+                  fontSize: (size === "sm") ? 22 : (size === "xs") ? 18 : 25,
+                  textDecoration: 'none',
+                  marginTop: 1,
+                  marginLeft: 3
+                }}
+              color="inherit"
+            >
+              Visuelle Bibel
+            </Typography>
+            <Button 
+              variant="contained" 
+              sx={{
+                marginTop: 3,
+                marginLeft: 3
+              }}
+              onClick={() => openInNewTab("https://bibel.wiki")}
+            >
+              https://bibel.wiki
+            </Button>
+            <Typography
+              sx={{
+                  fontFamily: "'Work Sans', sans-serif",
+                  fontSize: (size === "sm") ? 22 : (size === "xs") ? 18 : 25,
+                  textDecoration: 'none',
+                  marginTop: 2,
+                  marginLeft: 3
+                }}
+              color="inherit"
+            >
+              Hörbibel
+              <br/>Videoserien
+              <br/>tägliche Inhalte
+            </Typography>
+            <Typography
+              sx={{
+                  fontFamily: "'Work Sans', sans-serif",
+                  fontSize: (size === "sm") ? 18 : (size === "xs") ? 15 : 20,
+                  textDecoration: 'none',
+                  marginTop: 1,
+                  marginLeft: 3
+                }}
+              color="inherit"
+            >
+              Open Source
+            </Typography>
+            <Typography
+              sx={{
+                  fontFamily: "'Work Sans', sans-serif",
+                  fontSize: (size === "sm") ? 18 : (size === "xs") ? 15 : 20,
+                  textDecoration: 'none',
+                  marginTop: 3,
+                  marginLeft: 2
+                }}
+              color="inherit"
+            >
+              zukünftig auch
+            </Typography>
+            <Typography
+              sx={{
+                  fontFamily: "'Work Sans', sans-serif",
+                  fontSize: (size === "sm") ? 18 : (size === "xs") ? 15 : 20,
+                  textDecoration: 'none',
+                  marginLeft: 3
+                }}
+              color="inherit"
+            >
+              kollaborativ, 
+              <br/>mit Geschichten 
+              <br/>und Lebensthemen
+            </Typography>
+          </Box>
+        </SwipeableDrawer>
       </ThemeProvider>
     </div>
   )
