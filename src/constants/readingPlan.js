@@ -438,7 +438,7 @@ export const gospelOfJohnObjBPlus = {
   title: "John",
   description: "John.Descr",
   uniqueID: "BPlus.Thun.Johannes",
-  beginDate: "2024-09-30",
+  beginDate: "2024-10-01",
   image: {
     origin: "ImgId",
     filename: "John.ImgId"
