@@ -6,7 +6,7 @@ import ChevronLeft from '@mui/icons-material/ChevronLeft'
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
 import ImageListItemBar from '@mui/material/ImageListItemBar'
-import { rangeArray, pad, isEmptyObj } from '../utils/obj-functions'
+import { rangeArray, pad } from '../utils/obj-functions'
 import { osisIconId, osisIconList } from '../constants/osisIconList'
 import { getOsisChTitle, getChoiceTitle } from '../constants/osisChTitles'
 import useBrowserData from '../hooks/useBrowserData'
@@ -52,19 +52,63 @@ const BibleView = (props) => {
   const { size, width } = useBrowserData()
   const isPlaying = false
   const { t, i18n } = useTranslation()
-  const { onExitNavigation, onStartPlay } = props
   const useSerieId = "en-audio-bible-WEB" 
   const [curLevel, setCurLevel] = useState(1)
   const [level0, setLevel0] = useState(useSerieId)
   const [level1, setLevel1] = useState(1)
   const [level2, setLevel2] = useState("")
   const [level3, setLevel3] = useState("")
+  const [picsSrc, setPicsSrc] = useState()
   const [skipLevelList,setSkipLevelList] = useState([])
   // ToDo !!! find a bibleBookList and use this here
   // eslint-disable-next-line no-unused-vars
   const preNav = "/navIcons/"
+  const picsPreNav = "/img/free-pics/"
   const getSort = (val) => naviSortOrder.indexOf(parseInt(val))
   const addSkipLevel = (level) => setSkipLevelList([...skipLevelList,level])
+
+  // eslint-disable-next-line no-unused-vars
+  const getChFreePic = (bookObj,ch) => {
+    const {level1,level2} = bookObj
+    let checkIcon = "000-" + pad(level1)
+    if (level2!=null) checkIcon = "00-" + pad(level1) + level2
+    let imgSrc
+    // Book Icon - To Do - to be added in the future
+    // imgSrc = preBook +getOsisIcon(bk) +".png"
+    // Replace this above with book icons !
+    const lng = "en"
+    const bk = (bookObj!=null)?bookObj.bk:null
+    if (bk!=null){ // level 3
+      const checkObj = osisIconList[bk]
+      if (checkObj!=null){
+        let useCh
+        if (ch==null){
+          const entry = Object.entries(checkObj)[0]
+          useCh = entry[0]
+          if (bk!=null){ // level 3
+            const {beg,end} = bookObj
+            if ((beg!=null)&&(end!=null)){
+              useCh = Object.keys(checkObj).find(key => key>=beg)
+            }
+          }
+        } else {
+          if (checkObj[ch]!=null) useCh = ch
+        }
+        if (useCh!=null){
+          const prefixIdStr = osisIconId[bk]
+          const firstId = pad(parseInt(useCh))
+          const firstEntry = checkObj[useCh][0]
+          // checkIcon = osisIconId[bk] + "_" + firstId + "_" + firstEntry
+          checkIcon = `${prefixIdStr.slice(0,2)}/610px/${osisIconId[bk]}_${firstId}_${firstEntry}_RG`
+        }
+      }
+    }
+    imgSrc = picsPreNav +checkIcon +".jpg"
+    return {
+      imgSrc,
+      ch,
+    }
+  }
 
   // eslint-disable-next-line no-unused-vars
   const getChIcon = (key,lev1,lev2,bookObj,ch) => {
@@ -149,14 +193,15 @@ const BibleView = (props) => {
       setCurLevel(4)
     } else {
       const bookObj = {...naviChapters[level1][level2][level3], level1, level2, level3}
-      const curSerie = useSerie[level0]
-      // const {curSerie} = curPlay  
-      onStartPlay(level0,curSerie,bookObj,id)
+      const curPic = getChFreePic(bookObj,id)
+      setPicsSrc(curPic) 
     }
   }
 
   const navigateUp = (level) => {
-    if (skipLevelList.includes(level)) {
+    if (picsSrc) {
+      setPicsSrc(undefined)
+    } else if (skipLevelList.includes(level)) {
       navigateUp(level-1)
     } else {
       setCurLevel(level)
@@ -165,8 +210,9 @@ const BibleView = (props) => {
   }
 
   const navigateHome = () => {
-    setCurLevel(0)
-    setLevel0("audioBible")
+    setPicsSrc(undefined)
+    setCurLevel(1)
+    setLevel1(1)
   }
 
   const handleReturn = () => {
@@ -192,7 +238,6 @@ const BibleView = (props) => {
   } else if (curLevel===1){
     let lastInx
     const curSerie = useSerie[level0]
-    console.log(curSerie)
     const curList = (curSerie!=null && curSerie.bibleBookList) ? curSerie.bibleBookList : []
     Object.keys(naviBooksLevel1).sort((a,b)=>getSort(a)-getSort(b)
     ).forEach(iconInx => {
@@ -255,10 +300,10 @@ const BibleView = (props) => {
   const rootLevel = (curLevel===0)
   const naviType = serieNaviType[level0] || "audioBible"
   const lng = serieLang[level0]
-  const myList = []
+  const hasPicsSrc = picsSrc
   return (
     <div>
-      {(naviType==="audioBible") && (!isPlaying) && (curLevel>1) && (
+      {(naviType==="audioBible") && (curLevel>2) && (
         <Fab
           onClick={navigateHome}
           // className={largeScreen ? classes.exitButtonLS : classes.exitButton}
@@ -267,7 +312,7 @@ const BibleView = (props) => {
           <Home/>
         </Fab>
       )}
-      {!rootLevel && (!isPlaying) && (naviType==="audioBible") && (
+      {(curLevel>1) && (naviType==="audioBible") && (
         <Fab
           onClick={handleReturn}
           // className={largeScreen ? classes.exitButtonLS : classes.exitButton}
@@ -276,7 +321,12 @@ const BibleView = (props) => {
           <ChevronLeft />
         </Fab>
       )}
-      {(naviType==="audioBible") && (!isPlaying) && (<ImageList
+      {hasPicsSrc && (
+        <img
+          src={picsSrc.imgSrc}
+          alt={"test"}/>
+      )}
+      {!hasPicsSrc && (naviType==="audioBible") && (<ImageList
         rowHeight="auto"
         cols={useCols}
       >
