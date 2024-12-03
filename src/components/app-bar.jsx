@@ -56,23 +56,10 @@ const CustomAppBar = (props) => {
               m: 1,
             }}>
             <Item>
-              <img
+              {/* <img
                 src={'/icon/logo-bplus-mobile.svg'}
                 alt=""
-                style={{height: 52}} />
-            </Item>
-            <Item>
-              <Typography
-                sx={{
-                    fontFamily: "'Work Sans', sans-serif",
-                    fontSize: (size === "sm") ? 25 : (size === "xs") ? 14 : 35,
-                    textDecoration: 'none',
-                    width: '100%'
-                  }}
-                color="inherit"
-              >
-                {t("JohnLongTitle")}
-              </Typography>
+                style={{height: 52}} /> */}
             </Item>
             <Item>
               <IconButton
