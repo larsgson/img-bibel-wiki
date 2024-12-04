@@ -73,6 +73,7 @@ const BibleView = (props) => {
     let checkIcon = "000-" + pad(level1)
     if (level2!=null) checkIcon = "00-" + pad(level1) + level2
     let imgSrc
+    let useDefaultImage = true
     // Book Icon - To Do - to be added in the future
     // imgSrc = preBook +getOsisIcon(bk) +".png"
     // Replace this above with book icons !
@@ -97,13 +98,14 @@ const BibleView = (props) => {
         if (useCh!=null){
           const prefixIdStr = osisIconId[bk]
           const firstId = pad(parseInt(useCh))
-          const firstEntry = checkObj[useCh][0]
+          const firstEntry = checkObj[useCh][0].slice(0,2) // only accept first two numbers - ignore any trailing letter
           // checkIcon = osisIconId[bk] + "_" + firstId + "_" + firstEntry
           checkIcon = `${prefixIdStr.slice(0,2)}/610px/${osisIconId[bk]}_${firstId}_${firstEntry}_RG`
+          useDefaultImage = false
         }
       }
     }
-    imgSrc = picsPreNav +checkIcon +".jpg"
+    imgSrc = useDefaultImage ? preNav +checkIcon +".png" : picsPreNav +checkIcon +".jpg"
     return {
       imgSrc,
       ch,
@@ -194,6 +196,7 @@ const BibleView = (props) => {
     } else {
       const bookObj = {...naviChapters[level1][level2][level3], level1, level2, level3}
       const curPic = getChFreePic(bookObj,id)
+      console.log(curPic)
       setPicsSrc(curPic) 
     }
   }
@@ -324,7 +327,9 @@ const BibleView = (props) => {
       {hasPicsSrc && (
         <img
           src={picsSrc.imgSrc}
-          alt={"test"}/>
+          alt={"test"}
+          style={{width: width, marginTop: 20}}
+        />
       )}
       {!hasPicsSrc && (naviType==="audioBible") && (<ImageList
         rowHeight="auto"
